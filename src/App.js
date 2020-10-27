@@ -127,20 +127,42 @@ class App extends Component {
     super(props);
     this.state = {
       isSoundButtons1: true,
+      power: true,
+      volume: 0.4,
     } 
   }
 
 
   playButton = (url) => {
-    console.log(url)
      var audio = new Audio(url);
-     audio.play();
+     if(this.state.power){
+      audio.volume = this.state.volume
+      audio.play();
+     }
    }
 
   handleChange = () => {
     this.setState({
       isSoundButtons1: !this.state.isSoundButtons1
     }) 
+  }
+
+  switchPower = () =>{
+    this.setState({
+      power: !this.state.power
+    })
+  }
+
+  updateTextInput = (val) => {
+    console.log(val)
+    document.getElementById('textInput').value=val; 
+  }
+
+
+  setVolume = (e) => {
+    this.setState({
+      volume: e.target.value
+    })
   }
 
   render(){
@@ -150,6 +172,10 @@ class App extends Component {
           <div className="col-6">
             test
             <button onClick={this.handleChange}>Change</button>
+            <button onClick={this.switchPower}>Power</button>
+                <input type="range" min="0" max="1" step='0.01' value={this.state.volume} onChange={this.setVolume} />
+
+            {this.state.volume}
           </div>
           <div className="col-6">
            { 
@@ -163,5 +189,6 @@ class App extends Component {
     );
   }
 }
+
 
 export default App;
