@@ -126,41 +126,34 @@ class App extends Component {
   constructor(props){
     super(props);
     this.state = {
-      isSoundButtons1: false,
-    }
+      isSoundButtons1: true,
+    } 
   }
-  playButton = (name) => {
-   // var audio = document.getElementById("audio");
-    var audio = new Audio("https://s3.amazonaws.com/freecodecamp/drums/" + name + ".mp3");
-    audio.play();
-  }
-  playButton2 = (url) => {
-    // var audio = document.getElementById("audio");
+
+
+  playButton = (url) => {
     console.log(url)
      var audio = new Audio(url);
      audio.play();
    }
-   handleChange() {
-     console.log("handleChange")
+
+  handleChange = () => {
     this.setState({
       isSoundButtons1: !this.state.isSoundButtons1
-    })
-   }
+    }) 
+  }
 
   render(){
-    var Q = "Heater-1"
     return (
       <div id="drum-machine" className="container">
         <div className="row">
           <div className="col-6">
-            <button onClick={() => this.playButton(Q)}>Q</button>
-            <Button onClick={() => this.playButton(Q)} value = "Q" />
             test
             <button onClick={this.handleChange}>Change</button>
           </div>
           <div className="col-6">
            { 
-              this.state.isSoundButtons1 ? soundButtons1.map(sound => <Button onClick={() => this.playButton2(sound.url)} value = {sound.key} />) : soundButtons2.map(sound => <Button onClick={() => this.playButton2(sound.url)} value = {sound.key} />)
+              this.state.isSoundButtons1 ? soundButtons1.map(sound => <Button onClick={() => this.playButton(sound.url)} value = {sound.key} />) : soundButtons2.map(sound => <Button onClick={() => this.playButton(sound.url)} value = {sound.key} />)
            }
                   
             test2
