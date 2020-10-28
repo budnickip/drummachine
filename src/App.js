@@ -115,13 +115,39 @@ const soundButtons2 = [
     url: 'https://s3.amazonaws.com/freecodecamp/drums/Brk_Snr.mp3'
   },
 ]
-
+/*
 function Button(props) {
+  
   return(
     <button onClick={props.onClick}>{props.value}</button>
   )
 }
+*/
+class Button extends Component {
+  constructor(props){
+    super(props)
+  }
+  //tylko w tym miejscu w reactie można dodać eventlistener
+  componentDidMount() {
+    document.addEventListener('keydown', this.logKey);
+  }
+  //jak go nie usuniesz to będzie wywalało błąd, że trzeba go usunąć
+  componentWillUnmount() {
+    document.removeEventListener('keydown', this.logKey);
+  }
 
+  logKey = (e) => {
+    if(e.code == "Key" + this.props.value){
+      this.props.onClick()
+    }
+  }
+
+  render(){
+    return(
+      <button onClick={this.props.onClick}>{this.props.value}</button>
+    )
+  }
+}
 class App extends Component {
   constructor(props){
     super(props);
@@ -179,7 +205,7 @@ class App extends Component {
           </div>
           <div className="col-6">
            { 
-              this.state.isSoundButtons1 ? soundButtons1.map(sound => <Button onClick={() => this.playButton(sound.url)} value = {sound.key} />) : soundButtons2.map(sound => <Button onClick={() => this.playButton(sound.url)} value = {sound.key} />)
+              this.state.isSoundButtons1 ? soundButtons1.map(sound => <Button onClick={() => this.playButton(sound.url)} value = {sound.key} pressedButton = {this.state.button} />) : soundButtons2.map(sound => <Button onClick={() => this.playButton(sound.url)} value = {sound.key} pressedButton = {this.state.button} />)
            }
                   
             test2
@@ -189,6 +215,7 @@ class App extends Component {
     );
   }
 }
+
 
 
 export default App;
