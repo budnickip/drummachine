@@ -123,6 +123,52 @@ function Button(props) {
   )
 }
 */
+class Board extends Component{
+  constructor(props){
+    super(props)
+    this.state={
+      button: ''
+    }
+  }
+
+ /* setTimeout(
+    function() {
+        this.setState({ position: 1 });
+    }
+    .bind(this),
+    3000
+); */
+
+  playButton = (url, id) => {
+    var audio = new Audio(url);
+    if(this.props.power){
+     audio.volume = this.props.volume
+     this.setState({
+       button: id
+     })
+     setTimeout(() => {
+       this.setState({
+         button: ''
+       })
+     }, 1500)
+     audio.play();
+    }
+  }
+  
+  render(){
+      return( 
+          <div>
+             { this.props.isSoundButtons1 ? soundButtons1.map(sound => <Button 
+             onClick={() => this.playButton(sound.url, sound.id)} value = {sound.key} />) : soundButtons2.map(sound => <Button 
+             onClick={() => this.playButton(sound.url, sound.id)} value = {sound.key} />) }
+             <div id="display" className="displayer">
+                {this.state.button ? this.state.button : this.props.status ? this.props.status : ""}
+             </div>
+          </div>         
+      )
+  }
+}
+
 class Button extends Component {
   constructor(props){
     super(props)
@@ -155,17 +201,18 @@ class App extends Component {
       isSoundButtons1: true,
       power: true,
       volume: 0.4,
+      status: ''
     } 
   }
 
-
+/*
   playButton = (url) => {
      var audio = new Audio(url);
      if(this.state.power){
       audio.volume = this.state.volume
       audio.play();
      }
-   }
+   } */
 
   handleChange = () => {
     this.setState({
@@ -179,19 +226,27 @@ class App extends Component {
     })
   }
 
-  updateTextInput = (val) => {
+  /*updateTextInput = (val) => {
     console.log(val)
     document.getElementById('textInput').value=val; 
-  }
+  } */
 
 
   setVolume = (e) => {
     this.setState({
-      volume: e.target.value
+      volume: e.target.value,
+      status: "Volume: " + Math.floor(this.state.volume * 100)
     })
+    setTimeout(() => {
+      this.setState({
+        status: ''
+      })
+    }, 3000)
   }
-
+  //let status = "Volume: " + Math.floor(this.state.volume * 100) 
+  // ten status pod render był.
   render(){
+    
     return (
       <div id="drum-machine" className="container">
         <div className="row">
@@ -199,15 +254,11 @@ class App extends Component {
             test
             <button onClick={this.handleChange}>Change</button>
             <button onClick={this.switchPower}>Power</button>
-                <input type="range" min="0" max="1" step='0.01' value={this.state.volume} onChange={this.setVolume} />
-
-            {this.state.volume}
+            <input type="range" min="0" max="1" step='0.01' value={this.state.volume} volume = {this.state.volume} power = {this.state.power} onChange={this.setVolume} />
           </div>
           <div className="col-6">
-           { 
-              this.state.isSoundButtons1 ? soundButtons1.map(sound => <Button onClick={() => this.playButton(sound.url)} value = {sound.key} pressedButton = {this.state.button} />) : soundButtons2.map(sound => <Button onClick={() => this.playButton(sound.url)} value = {sound.key} pressedButton = {this.state.button} />)
-           }
-                  
+
+           <Board isSoundButtons1 = {this.state.isSoundButtons1}  status = {this.state.status} power = {this.state.power} volume = {this.state.volume}/>       
             test2
           </div>
         </div>
