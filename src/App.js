@@ -10,7 +10,8 @@ class App extends Component {
       isSoundButtons1: true,
       power: true,
       volume: 0.4,
-      status: ''
+      status: '',
+      isChecked: true
     } 
   }
 
@@ -44,18 +45,24 @@ class App extends Component {
     
     return (
       <div id="drum-machine" className="container">
-        <div className="row">
-          <div className="col-6">
-            test
-            <button onClick={this.handleChange}>Change</button>
-            <button onClick={this.switchPower}>Power</button>
-            <input type="range" min="0" max="1" step='0.01' value={this.state.volume} volume = {this.state.volume} power = {this.state.power} onChange={this.setVolume} />
+        <div className="row machine">
+          <div className="col-md-6">
+            <Board isSoundButtons1 = {this.state.isSoundButtons1}  status = {this.state.status} power = {this.state.power} volume = {this.state.volume}/>       
           </div>
-          <div className="col-6">
+            <div className="col-md-6">
+              Power:
+              <label className="switch">
+                <input type="checkbox" checked = {this.state.power} onChange={this.switchPower}/>
+                <span className="slider round"></span>
+              </label>
+              <input type="range" className="range" min="0" max="1" step='0.01' value={this.state.volume} volume = {this.state.volume} power = {this.state.power} onChange={this.setVolume} />
+              Bank:
+              <label className="switch">
+                <input type="checkbox" checked = {this.state.isSoundButtons1} onChange={this.handleChange}/>
+                <span className="slider round"></span>
+              </label>
 
-           <Board isSoundButtons1 = {this.state.isSoundButtons1}  status = {this.state.status} power = {this.state.power} volume = {this.state.volume}/>       
-            test2
-          </div>
+            </div>
         </div>
       </div>
     );

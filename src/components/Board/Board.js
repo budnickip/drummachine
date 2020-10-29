@@ -125,13 +125,6 @@ class Board extends Component{
       }
     }
   
-   /* setTimeout(
-      function() {
-          this.setState({ position: 1 });
-      }
-      .bind(this),
-      3000
-  ); */
   
     playButton = (url, id) => {
       var audio = new Audio(url);
@@ -151,13 +144,15 @@ class Board extends Component{
     
     render(){
         return( 
-            <div>
-               { this.props.isSoundButtons1 ? soundButtons1.map(sound => <Button 
+            <div className="row text-center">
+               { this.props.isSoundButtons1 ? soundButtons1.map(sound => <Button
                onClick={() => this.playButton(sound.url, sound.id)} value = {sound.key} />) : soundButtons2.map(sound => <Button 
                onClick={() => this.playButton(sound.url, sound.id)} value = {sound.key} />) }
-               <div id="display" className="displayer">
+               
+              <div id="display" className="col-12 displayer">
                   {this.state.button ? this.state.button : this.props.status ? this.props.status : ""}
-               </div>
+              </div>
+               
             </div>         
         )
     }
