@@ -49,18 +49,30 @@ class App extends Component {
           <div className="col-md-6">
             <Board isSoundButtons1 = {this.state.isSoundButtons1}  status = {this.state.status} power = {this.state.power} volume = {this.state.volume}/>       
           </div>
-            <div className="col-md-6">
-              Power:
-              <label className="switch">
-                <input type="checkbox" checked = {this.state.power} onChange={this.switchPower}/>
-                <span className="slider round"></span>
-              </label>
-              <input type="range" className="range" min="0" max="1" step='0.01' value={this.state.volume} volume = {this.state.volume} power = {this.state.power} onChange={this.setVolume} />
-              Bank:
-              <label className="switch">
-                <input type="checkbox" checked = {this.state.isSoundButtons1} onChange={this.handleChange}/>
-                <span className="slider round"></span>
-              </label>
+            <div className="col-md-6 text-center">
+              <div className="row">
+                <div className="power col-12">
+                  <p className="power__paragraph">Power:</p>
+                  <label className="switch">
+                    <input type="checkbox" checked = {this.state.power} onChange={this.switchPower}/>
+                    <span className="slider round"></span>
+                  </label>
+                </div>
+              </div>
+              <div className="row">
+                <div className="col-12">
+                   <input type="range" className="range" min="0" max="1" step='0.01' value={this.state.volume} volume = {this.state.volume} power = {this.state.power} onChange={this.setVolume} />
+                </div>
+              </div>
+              <div className="row">
+                <div className="bank col-12">
+                  <p className="bank__paragraph">Bank:</p>
+                  <label className="switch">
+                    <input type="checkbox" checked = {this.state.isSoundButtons1} onChange={this.handleChange}/>
+                    <span className="slider round"></span>
+                  </label>
+                </div>
+              </div>
 
             </div>
         </div>
