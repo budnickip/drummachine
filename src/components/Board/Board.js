@@ -144,18 +144,16 @@ class Board extends Component{
     
     render(){
         return( 
-          <div>
-            {/*<div className="row text-center">
+            <div className="row text-center">
                { this.props.isSoundButtons1 ? soundButtons1.map(sound => <Button
-               onClick={() => this.playButton(sound.url, sound.id)} value = {sound.key} url ={sound.url}/>) : soundButtons2.map(sound => <Button 
-               onClick={() => this.playButton(sound.url, sound.id)} value = {sound.key} url ={sound.url}/>) }
+               onClick={() => this.playButton(sound.url, sound.id)} value = {sound.key} />) : soundButtons2.map(sound => <Button 
+               onClick={() => this.playButton(sound.url, sound.id)} value = {sound.key} />) }
                
               <div id="display" className="col-12 displayer">
                   {this.state.button ? this.state.button : this.props.status ? this.props.status : ""}
               </div>
                
-               </div>         */}
-          </div>
+            </div>         
         )
     }
   }
