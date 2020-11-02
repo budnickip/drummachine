@@ -1,11 +1,12 @@
-import React, { Component } from 'react';
+import React, { Component, useEffect } from 'react';
 import './Button.scss';
-
+/*
 class Button extends Component {
     constructor(props){
       super(props)
     }
-    //tylko w tym miejscu w reactie można dodać eventlistener
+    //tylko w tym miejscu w reactie można dodać eventlistener 
+    //no chyba, że użyję hooków :)
     componentDidMount() {
       document.addEventListener('keydown', this.logKey);
     }
@@ -27,6 +28,29 @@ class Button extends Component {
         </div>
       )
     }
+  } */
+  // zmiana na użycie komponentu funkcyjnego oraz dodanie hooka useEffect zamiast 
+  //sideeffects
+  function Button(props){
+    useEffect(()=>{
+      document.addEventListener('keydown', logKey);
+      return () => {
+        document.removeEventListener('keydown', logKey);
+      }
+    })
+    const logKey = (e) => {
+      if(e.code == "Key" + props.value){
+        props.onClick()
+      }
+    }
+  
+    
+      return(
+        <div className="col-4">
+          <button className="drum-pad" onClick={props.onClick}>{props.value}</button>
+        </div>
+      )
+    
   }
 
 export default Button
