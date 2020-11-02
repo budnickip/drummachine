@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, useState } from 'react';
 import './Board.scss';
 import Button from '../Button/Button'
 
@@ -116,7 +116,7 @@ const soundButtons1 = [
       url: 'https://s3.amazonaws.com/freecodecamp/drums/Brk_Snr.mp3'
     },
   ]
-
+/*
 class Board extends Component{
     constructor(props){
       super(props)
@@ -156,6 +156,34 @@ class Board extends Component{
             </div>         
         )
     }
+  } */
+
+  function Board(props){
+    const [button, setButton] = useState("")
+
+    const playButton = (url, id) => {
+      var audio = new Audio(url);
+      if(props.power){
+       audio.volume = props.volume
+       setButton(id)
+       setTimeout(() => {
+         setButton('')
+       }, 1500)
+       audio.play();
+      }
+    }
+    return( 
+      <div className="row text-center">
+         { props.isSoundButtons1 ? soundButtons1.map(sound => <Button
+         onClick={() => playButton(sound.url, sound.id)} value = {sound.key} />) : soundButtons2.map(sound => <Button 
+         onClick={() => playButton(sound.url, sound.id)} value = {sound.key} />) }
+         
+        <div id="display" className="col-12 displayer">
+            {button ? button : props.status ? props.status : ""}
+        </div>
+         
+      </div>         
+    )
   }
 
 export default Board
