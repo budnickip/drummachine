@@ -1,5 +1,7 @@
 # DrumMachine
 
+![./.github/images/drum_machine.png](./.github/images/drum_machine.png)
+
 Aplikacja stworzona na potrzeby zaliczenia projektu FreeCodeCamp \
 Obejrzyj na żywo: https://budnickip.github.io/drummachine/ \
 Wykorzystane technologie: \
